@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+    function TimeInvert() {
+        const [time, setTime] = React.useState();
+        const [control, setControl] = React.useState(true);
+
+        const inputHandler = (event) => {
+            setTime(event.target.value);
+        }
+        const clearHandler = () => {
+            setTime(0)
+        }
+        const controlHandler = () => {
+            clearHandler();
+            setControl(current => !current)
+        }
+        return (
+            <div>
+                <h1>Time Invertor</h1>
+                <div>
+                    <label htmlFor='min'>Minutes</label>
+                    <input disabled={!control} value={control ? time : time * 60} onChange={inputHandler} type='number' placeholder='Minutes?' />
+                </div>
+                <div>
+                    <label htmlFor='h'>Hours</label>
+                    <input disabled={control} value={!control ? time : time / 60} onChange={inputHandler} type='number' placeholder='Hours?' />
+                </div>
+                <button onClick={clearHandler}>Clear</button>
+                <button onClick={controlHandler}>{control ? 'h to min' : 'min to h'}</button>
+            </div>
+        )
+    }
+    function DistanceInvert() {
+       
+        const [distance, setDistance] = React.useState();
+        const [control, setControl] = React.useState(true);
+
+        const inputHandler = (event) => {
+            setDistance(event.target.value);
+        }
+        const clearHandler = () => {
+            setDistance(0)
+        }
+        const controlHandler = () => {
+            clearHandler();
+            setControl(current => !current)
+        }
+        return (
+            <div>
+                <div>
+                    <label htmlFor='min'>Kilometers</label>
+                    <input disabled={!control} value={control ? distance : distance * 1.609344} onChange={inputHandler} type='number' placeholder='Minutes?' />
+                </div>
+                <div>
+                    <label htmlFor='h'>Miles</label>
+                    <input disabled={control} value={!control ? distance : distance * 0.621371192237334} onChange={inputHandler} type='number' placeholder='Hours?' />
+                </div>
+                <button onClick={clearHandler}>Clear</button>
+                <button onClick={controlHandler}>{control ? 'km to m' : 'm to km'}</button>
+            </div>
+        )
+    }
+    function App() {
+        const [item, setItem] = React.useState('0')
+        const onSelect = (event) => {
+            setItem(event.target.value);
+        }
+        return (
+            <div>
+                <h1>Invertor</h1>
+                <select value={item} onChange={onSelect}>
+                    <option value='0'>Time</option>
+                    <option value='1'>Distance</option>
+                </select>
+                {item === '0' ? <TimeInvert /> : <DistanceInvert />}
+
+            </div>
+        )
+    }
+    ReactDOM.render(<App />, root)
+</script>
+
+</html>

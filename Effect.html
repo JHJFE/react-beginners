@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    //import {useState,useEffect} from 'react'
+    function App() {
+        const [num,setNum] = React.useState(0);
+        const counting = () =>{
+            setNum((cnt) => cnt+1)
+        }
+        const runOnlyOnce=()=>{
+            console.log('1번만 동작')
+        }
+        console.log('계속 동작 중');
+        useEffect(runOnlyOnce,[])
+        return (
+            <div>
+                <h1>숫자세기</h1>
+                <button onClick = {counting}>버튼</button>
+                <div>{num}</div>
+            </div>
+        )
+    }
+    ReactDOM.render(<App />, root)
+</script>
+
+</html>
